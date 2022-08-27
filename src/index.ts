@@ -1,24 +1,17 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import { registerUser } from './services/auth';
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server running');
-});
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.get('/hi/', async (req, res) => {
-  try {
-    return res.send({ hi: "hello "});
-  } catch (err) {
-    return res
-      .status(400)
-      .send(`There was an issue fetching your data: ${err}`);
-  }
-});
+app.post('/register-user/', (req: Request, res: Response) => registerUser(req, res));
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

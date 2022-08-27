@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/natasjja/ts-oauth2#readme",
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1"
   },
