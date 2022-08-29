@@ -1,12 +1,5 @@
 import bodyParser from "body-parser";
-import express, {
-  Express,
-  NextFunction,
-  request,
-  Request,
-  response,
-  Response,
-} from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import { oAuthServer } from "./oauth/server";
 import dotenv from "dotenv";
 import { registerNewUser } from "./services/user";
@@ -15,7 +8,7 @@ import { responseMessage } from "./helpers";
 dotenv.config();
 
 const port = process.env.PORT;
-const app = express();
+const app: Express = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

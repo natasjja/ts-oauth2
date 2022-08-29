@@ -29,12 +29,7 @@ const db = {
   },
 };
 
-type CallbackResponse = {
-  err: boolean | string;
-  res: Client;
-};
-
-const getClient = (cb) => {
+const getClient = (clientID, clientSecret, cb) => {
   return cb(false, db.client);
 };
 
@@ -68,8 +63,7 @@ const getAccessToken = (accessToken, cb): Promise<Token | Falsey> => {
 };
 
 const verifyScope = (token, scope, cb): Promise<boolean> => {
-  /* This is where we check to make sure the client has access to this scope */
-  const userHasAccess = true; // return true if this user / client combo has access to this resource
+  const userHasAccess = true;
   return cb(false, userHasAccess);
 };
 
