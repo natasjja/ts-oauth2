@@ -1,65 +1,59 @@
-import { Client, Token, Falsey } from "oauth2-server";
-import { User } from "../db/users";
-import { getUserFromDb } from "../services/user";
+import { Token, Falsey, User, Client } from "oauth2-server";
+import { getUserFromDb } from "../db/users";
 
-const client: Client = {
-  id: "",
-  clientId: "vbfg90b90dtfg",
-  clientSecret: "-0i9mcgbjcvbj",
-  grants: ["password"],
-  redirectUris: [""],
-};
-
-const db = {
-  authorizationCode: {
-    authorizationCode: "",
-    expiresAt: new Date(),
-    redirectUri: "",
-    client: undefined,
-    user: null,
+const authDb = {
+  client: {
+    id: "",
+    clientId: "vbfg90b90dtfg",
+    clientSecret: "-0i9mcgbjcvbj",
+    grants: ["password"],
+    redirectUris: [""],
   },
-  client,
   token: {
     accessToken: "",
     accessTokenExpiresAt: new Date(),
-    client: client,
+    client: {},
     user: {
       username: "",
     },
   },
 };
 
-const getClient = (clientID, clientSecret, cb) => {
-  return cb(false, db.client);
+const getClient = (clientId, clientSecret, cb): Promise<Client | Falsey> => {
+  return cb(false, authDb.client);
 };
 
 const getUser = async (username, password, cb): Promise<User | Falsey> => {
   const user = await getUserFromDb(username, password);
 
-  console.log("Got user: ", user?.username);
+  const dbUser = {
+    username: user?.username,
+  };
 
-  return cb(user === null ? "User credentials are incorrect" : false, user);
+  console.log("Got user from db: ", user?.username);
+
+  return cb(!user && "Couldn't get user", dbUser);
 };
 
 const saveToken = (token, client, user, cb): Promise<Token | Falsey> => {
-  db.token = {
+  authDb.token = {
     accessToken: token.accessToken,
-    accessTokenExpiresAt: token.accessTokenExpiresAt,
-    client: client,
+    accessTokenExpiresAt: new Date(token.accessTokenExpiresAt),
+    client: authDb.client,
     user: user,
   };
 
-  console.log("Saving token: ", token);
+  console.log("Saved token", authDb.token);
 
-  return cb(token ? false : true, db.token);
+  return cb(!token && "Couldn't save token", authDb.token);
 };
 
 const getAccessToken = (accessToken, cb): Promise<Token | Falsey> => {
   const noToken = !accessToken || accessToken === "undefined";
 
-  const matchedTokens = accessToken === db.token.accessToken;
+  const matchedTokens = accessToken === authDb.token.accessToken;
 
-  return cb(noToken ? true : false, matchedTokens ? accessToken : null);
+  return cb(noToken, matchedTokens ? authDb.token : null);
 };
 
 const verifyScope = (token, scope, cb): Promise<boolean> => {
