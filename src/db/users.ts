@@ -13,7 +13,7 @@ export const addUserToDb = async (user: User): Promise<void> => {
   const newUser = { username: user.username, password: hashedPassword };
 
   usersDb.push(newUser);
-  console.log("users: ", usersDb);
+  // console.log("users: ", usersDb);
 };
 
 export const getUserFromDb = async (

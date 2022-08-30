@@ -7,7 +7,6 @@ const authDb = {
     clientId: "vbfg90b90dtfg",
     clientSecret: "-0i9mcgbjcvbj",
     grants: ["password"],
-    redirectUris: [""],
   },
   token: {
     accessToken: "",
@@ -61,10 +60,4 @@ const verifyScope = (token, scope, cb): Promise<boolean> => {
   return cb(false, userHasAccess);
 };
 
-export const model = {
-  getClient,
-  getUser,
-  saveToken,
-  getAccessToken,
-  verifyScope,
-};
+export { getClient, getUser, saveToken, getAccessToken, verifyScope };

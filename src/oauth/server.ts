@@ -1,6 +1,18 @@
 import OAuthServer from "express-oauth-server";
-import { model } from "./model";
+import {
+  getClient,
+  getUser,
+  saveToken,
+  getAccessToken,
+  verifyScope,
+} from "./model";
 
 export const oAuthServer = new OAuthServer({
-  model,
+  model: {
+    getClient,
+    getUser,
+    saveToken,
+    getAccessToken,
+    verifyScope,
+  },
 });

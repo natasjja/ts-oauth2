@@ -5,5 +5,5 @@ export const responseMessage = (
   message: string,
   statusCode: number
 ) => {
-  return res.status(statusCode).send({ message });
+  return res.status(statusCode).send(message);
 };

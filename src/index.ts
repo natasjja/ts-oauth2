@@ -7,7 +7,7 @@ import { helloAuthenticatedUser, registerNewUser } from "./routes/user";
 dotenv.config();
 
 const port = process.env.PORT;
-const app: Express = express();
+export const app: Express = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -22,6 +22,6 @@ app.post("/token", (req: Request, res: Response, next: NextFunction) => {
 
 app.post("/secure", oAuthServer.authenticate(), helloAuthenticatedUser);
 
-app.listen(port, () => {
+export const server = app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
