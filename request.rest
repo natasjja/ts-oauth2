@@ -8,7 +8,6 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8080/token/
-// Passing the clientId and clientSecret as base64 encoded in auth header
 Authorization: Basic dmJmZzkwYjkwZHRmZzowaTltY2diamN2Ymo=
 Content-Type: application/x-www-form-urlencoded
 
@@ -16,4 +15,4 @@ grant_type=password&username=Tasja&password=password
 
 ###
 POST http://localhost:8080/secure/
-Authorization: Bearer 27deeccf33c6d6502aa8702692d03c533aba83e
+Authorization: Bearer 
