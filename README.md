@@ -9,7 +9,7 @@ Here is the flow of the OAuth2 Server I've implemented:
 |        |------- Password Grant ------->|    OAuth2     |
 |        |<------  Access Token  --------|    Server     |
 |        |                               +---------------+        
-| Client |                               
+|  User  |                               
 |        |                               +---------------+  
 |        |-------- Access Token -------->|    Resource   |                             
 |        |<----- Protected Resource -----|     Server    |
@@ -17,7 +17,7 @@ Here is the flow of the OAuth2 Server I've implemented:
 +--------+        
 ```
 
-As this demo doesn't involve interaction with a real client with redirect uris, the verification of the client hasn't been included.
+As this demo doesn't involve interaction with a third party client, the verification of the client and getting permission from the user hasn't been included.
 
 ## Usage
 

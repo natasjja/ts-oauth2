@@ -52,7 +52,7 @@ describe("POST /register", () => {
     expect(res.text).toEqual("You're now successfully registered");
   });
 
-  it("returns status code 400 if username and password is passed", async () => {
+  it("returns status code 400 if username and password is not passed", async () => {
     const res = await request(app)
       .post("/register")
       .send({ username: "", password: "123" });
